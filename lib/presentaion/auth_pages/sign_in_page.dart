@@ -58,13 +58,16 @@ class _SignInPageState extends State<SignInPage> {
                           (_) => AlertDialog(
                             backgroundColor: AppColors.greybg,
                             title: const Text("Notice"),
-                            content: Text(state.message),
+                            content: Text(
+                              state.message,
+                              style: TextStyle(color: Colors.white),
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
                                 child: const Text(
                                   "OK",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ],

@@ -21,4 +21,8 @@ final class WeatherFailure extends WeatherState {
 
 final class LoadSearchState extends WeatherState {}
 
-final class ToAuthState extends WeatherState {}
+final class WeatherSearchSuccess extends WeatherState {
+  final WeatherDataModel weatherData;
+
+  WeatherSearchSuccess({required this.weatherData});
+}

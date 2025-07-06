@@ -10,15 +10,15 @@ import 'package:weather_app/theme/theme.dart';
 
 import 'package:weather_app/widgets/vertical_divider.dart';
 
-class HomePage extends StatefulWidget {
+class ResultPage extends StatefulWidget {
   // final bool locationDenied;
-  const HomePage({super.key});
+  const ResultPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ResultPage> createState() => _ResultPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ResultPageState extends State<ResultPage> {
   @override
   void initState() {
     super.initState();
@@ -55,8 +55,9 @@ class _HomePageState extends State<HomePage> {
         }
       },
       builder: (context, state) {
-        if (state is WeatherSuccess) {
+        if (state is WeatherSearchSuccess) {
           return Scaffold(
+            appBar: AppBar(backgroundColor: AppColors.greybg, elevation: 0),
             body: SafeArea(
               child: Container(
                 height: screenHeight,
@@ -66,21 +67,6 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     SizedBox(height: 20),
 
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchPage(),
-                            ),
-                          );
-                        },
-                        icon: Icon(Icons.search_sharp),
-                      ),
-                    ),
                     Text(
                       state.weatherData.location,
                       style: theme.textTheme.titleLarge?.copyWith(

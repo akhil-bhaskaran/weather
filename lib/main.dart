@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:weather_app/presentaion/auth_pages/bloc/auth_bloc.dart';
 import 'package:weather_app/presentaion/homepage/bloc/weather_bloc.dart';
-import 'package:weather_app/presentaion/samp.dart';
 import 'package:weather_app/presentaion/splash_screen/bloc/splash_bloc.dart';
 import 'package:weather_app/presentaion/splash_screen/splash_screen.dart';
 import 'package:weather_app/theme/theme.dart';

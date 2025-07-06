@@ -58,11 +58,17 @@ class _SignUpPageState extends State<SignUpPage> {
                           (_) => AlertDialog(
                             backgroundColor: AppColors.greybg,
                             title: const Text("Notice"),
-                            content: Text(state.message),
+                            content: Text(
+                              state.message,
+                              style: TextStyle(color: Colors.white),
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text("OK"),
+                                child: const Text(
+                                  "OK",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           ),
@@ -70,91 +76,97 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                 },
                 builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20),
-                        Text(
-                          'Create \nAccount',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        MyTextfield(
-                          hintText: 'Name',
-                          controller: nameController,
-                        ),
-                        SizedBox(height: 20),
-                        MyTextfield(
-                          hintText: 'Email',
-                          controller: emailController,
-                        ),
-                        SizedBox(height: 20),
-                        MyTextfield(
-                          hintText: "Password",
-                          controller: passwordController,
-                        ),
-                        SizedBox(height: 30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  return state.runtimeType == AuthLoading
+                      ? Center(
+                        child: CircularProgressIndicator(color: Colors.black),
+                      )
+                      : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(height: 20),
                             Text(
-                              "Sign Up",
-                              style: theme.textTheme.bodyLarge?.copyWith(
+                              'Create \nAccount',
+                              style: TextStyle(
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
-                                fontSize: 26,
                               ),
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                BlocProvider.of<AuthBloc>(context).add(
-                                  AuthSignUpRequested(
-                                    username: nameController.text.trim(),
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim(),
-                                    cpassword: passwordController.text.trim(),
+                            SizedBox(height: 20),
+                            MyTextfield(
+                              hintText: 'Name',
+                              controller: nameController,
+                            ),
+                            SizedBox(height: 20),
+                            MyTextfield(
+                              hintText: 'Email',
+                              controller: emailController,
+                            ),
+                            SizedBox(height: 20),
+                            MyTextfield(
+                              hintText: "Password",
+                              controller: passwordController,
+                            ),
+                            SizedBox(height: 30),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Sign Up",
+                                  style: theme.textTheme.bodyLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 26,
                                   ),
-                                );
-                              },
-                              child: Icon(Icons.arrow_forward),
-                              style: ElevatedButton.styleFrom(
-                                shape: CircleBorder(),
-                                padding: EdgeInsets.all(16),
-                                iconColor: Colors.white,
-                                backgroundColor: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                BlocProvider.of<AuthBloc>(
-                                  context,
-                                ).add(AuthToggleToLogin());
-                              },
-                              child: Text(
-                                "Sign In",
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
                                 ),
-                              ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    BlocProvider.of<AuthBloc>(context).add(
+                                      AuthSignUpRequested(
+                                        username: nameController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                        cpassword:
+                                            passwordController.text.trim(),
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(Icons.arrow_forward),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: CircleBorder(),
+                                    padding: EdgeInsets.all(16),
+                                    iconColor: Colors.white,
+                                    backgroundColor: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    BlocProvider.of<AuthBloc>(
+                                      context,
+                                    ).add(AuthToggleToLogin());
+                                  },
+                                  child: Text(
+                                    "Sign In",
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  );
+                      );
                 },
               ),
             ),

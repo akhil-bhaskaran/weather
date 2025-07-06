@@ -18,7 +18,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final SupabaseClient supabase = Supabase.instance.client;
   final String apiKey = dotenv.env['API_KEY']!;
   static const weatherUrl =
-      "https://api.openweathermap.org/data/2.5/weather?q=";
+      "https://api.openweathermap.org/data/2.5/weather?lat=";
+  // "https://api.openweathermap.org/data/2.5/weather?q=";
 
   SplashBloc() : super(SplashInitial()) {
     on<AppStarted>((event, emit) async {
@@ -59,15 +60,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           }
         }
         final position = await _determinePosition();
-        final placemarks = await placemarkFromCoordinates(
-          position.latitude,
-          position.longitude,
-        );
-        final city = placemarks.first.locality ?? "Unknown";
+
         // Fetch new data (either no existing data or data is stale)
         log("Fetching new weather data");
         final response = await http.get(
-          Uri.parse("$weatherUrl$city&appid=$apiKey"),
+          Uri.parse(
+            "$weatherUrl${position.latitude}&lon=${position.longitude}&appid=$apiKey",
+          ),
         );
 
         if (response.statusCode == 200) {
