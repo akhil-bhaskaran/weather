@@ -70,7 +70,7 @@ class _ResultPageState extends State<ResultPage> {
                     Text(
                       state.weatherData.location,
                       style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -93,6 +93,8 @@ class _ResultPageState extends State<ResultPage> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 30),
+
                     Text(
                       '${state.weatherData.temperature.toStringAsFixed(0)}\u2103',
                       style: theme.textTheme.displayLarge?.copyWith(height: .3),

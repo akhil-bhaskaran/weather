@@ -33,7 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
           if (state is DirectToAuthPage) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const SignInPage()),
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => const SignInPage(),
+                transitionDuration: Duration.zero,
+              ),
             );
           } else if (state is SplashLoaded) {
             context.read<WeatherBloc>().add(
@@ -41,7 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
             );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => HomePage()),
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => const HomePage(),
+                transitionDuration: Duration.zero,
+              ),
             );
           } else if (state is SplashLocationError) {
             ScaffoldMessenger.of(context).showSnackBar(

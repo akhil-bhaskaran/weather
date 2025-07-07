@@ -10,14 +10,9 @@ class AuthLoginRequested extends AuthEvent {
 }
 
 class AuthSignUpRequested extends AuthEvent {
-  final String username, email, password, cpassword;
+  final String email, password;
 
-  AuthSignUpRequested({
-    required this.username,
-    required this.email,
-    required this.password,
-    required this.cpassword,
-  });
+  AuthSignUpRequested({required this.email, required this.password});
 }
 
 class AuthToggleToLogin extends AuthEvent {}

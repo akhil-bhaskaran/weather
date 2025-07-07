@@ -8,6 +8,7 @@ import 'package:weather_app/presentaion/splash_screen/bloc/splash_bloc.dart';
 import 'package:weather_app/presentaion/splash_screen/splash_screen.dart';
 import 'package:weather_app/theme/theme.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => WeatherBloc()),
       ],
       child: MaterialApp(
+        navigatorObservers: [routeObserver],
         theme: theme,
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),

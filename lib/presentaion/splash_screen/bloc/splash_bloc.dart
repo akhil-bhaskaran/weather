@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:geocoding/geocoding.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart' show Logger;
@@ -52,7 +53,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
           if (diff.inHours < 3) {
             log("from supabase");
-            log("xisting weather data: ${existing}");
+            log("Existing weather data: ${existing}");
             final weather = WeatherDataModel.fromJsonSupabase(existing["data"]);
             print(weather.maxTemperature.toStringAsFixed(0));
             emit(SplashLoaded(weatherData: weather));
@@ -98,9 +99,14 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         } else {
           emit(SplashLocationError(message: "API failed"));
         }
+      } on SocketException {
+        emit(SplashLocationError(message: "No Internet connection."));
       } on Exception catch (e) {
         log("Error determining position: ${e}");
         emit(SplashLocationError(message: e.toString()));
+      } catch (c) {
+        log("Error determining position: ${c}");
+        emit(SplashLocationError(message: "Some Error Occured"));
       }
     });
   }

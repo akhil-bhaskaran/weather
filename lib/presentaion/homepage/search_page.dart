@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconly/iconly.dart';
+
 import 'package:weather_app/presentaion/homepage/bloc/weather_bloc.dart';
 import 'package:weather_app/presentaion/homepage/home_page.dart';
 import 'package:weather_app/presentaion/homepage/result_page.dart';
@@ -30,15 +30,18 @@ class _SearchPageState extends State<SearchPage> {
           );
         } else if (state is WeatherSuccess) {
           // Handle successful weather data retrieval
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Weather data loaded successfully'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content: Text('Weather data loaded successfully'),
+          //     duration: Duration(seconds: 2),
+          //   ),
+          // );
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const HomePage(),
+              transitionDuration: Duration.zero,
+            ),
           );
         } else if (state is WeatherSearchSuccess) {
           // Handle successful weather data retrieval
@@ -50,7 +53,10 @@ class _SearchPageState extends State<SearchPage> {
           );
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ResultPage()),
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const ResultPage(),
+              transitionDuration: Duration.zero,
+            ),
           );
         }
       },
@@ -59,6 +65,8 @@ class _SearchPageState extends State<SearchPage> {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         } else {
           return Scaffold(
+            appBar: AppBar(backgroundColor: AppColors.greybg, elevation: 0),
+
             body: Container(
               color: AppColors.greybg,
               child: SafeArea(
@@ -111,8 +119,8 @@ class _SearchPageState extends State<SearchPage> {
                             _searchController.clear();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.grey[100],
+                            foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -147,8 +155,8 @@ class _SearchPageState extends State<SearchPage> {
                             ).add(RestoreInitialWeatherEvent());
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.grey[100],
+                            foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),

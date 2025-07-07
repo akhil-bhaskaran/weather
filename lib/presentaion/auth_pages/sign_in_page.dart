@@ -28,7 +28,14 @@ class _SignInPageState extends State<SignInPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(height: screenHeight / 3, color: Colors.black),
+            Container(
+              height: screenHeight / 3,
+              color: Colors.black,
+              child: Image.asset(
+                "assets/images/raint.png",
+                fit: BoxFit.fitHeight,
+              ),
+            ),
             Container(
               height: screenHeight * 0.7,
               decoration: BoxDecoration(
@@ -57,7 +64,13 @@ class _SignInPageState extends State<SignInPage> {
                       builder:
                           (_) => AlertDialog(
                             backgroundColor: AppColors.greybg,
-                            title: const Text("Notice"),
+                            title: const Text(
+                              "Notice",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
                             content: Text(
                               state.message,
                               style: TextStyle(color: Colors.white),
@@ -74,6 +87,8 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                     );
                   } else if (state is AuthSuccess) {
+                    emailController.clear();
+                    passwordController.clear();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SplashScreen()),

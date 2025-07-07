@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/main.dart';
 import 'package:weather_app/presentaion/auth_pages/sign_in_page.dart';
 import 'package:weather_app/presentaion/homepage/bloc/weather_bloc.dart';
 import 'package:weather_app/presentaion/homepage/search_page.dart';
@@ -18,10 +19,28 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  // This gets called when coming back to HomePage
+  @override
+  void didPopNext() {
+    context.read<WeatherBloc>().add(RestoreInitialWeatherEvent());
   }
 
   String getWeatherImagePath(String weather) {
@@ -36,8 +55,10 @@ class _HomePageState extends State<HomePage> {
         return 'assets/images/raint.png';
       case 'drizzle':
         return 'assets/images/drizzle.png';
+      case 'snow':
+        return 'assets/images/snow.png';
       default:
-        return 'assets/images/default.png'; // Fallback image
+        return 'assets/images/sunny.png';
     }
   }
 
@@ -73,8 +94,9 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchPage(),
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => const SearchPage(),
+                              transitionDuration: Duration.zero,
                             ),
                           );
                         },
@@ -84,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       state.weatherData.location,
                       style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -107,6 +129,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+
                     Text(
                       '${state.weatherData.temperature.toStringAsFixed(0)}\u2103',
                       style: theme.textTheme.displayLarge?.copyWith(height: .3),
@@ -209,7 +232,11 @@ class _HomePageState extends State<HomePage> {
             body: SafeArea(child: Center(child: CircularProgressIndicator())),
           );
         } else {
-          return SearchPage();
+          // Show loading instead of navigating to SearchPage
+          // Let the app handle the initial state properly
+          return Scaffold(
+            body: SafeArea(child: Center(child: Text("No data"))),
+          );
         }
       },
     );

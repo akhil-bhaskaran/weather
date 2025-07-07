@@ -16,7 +16,7 @@ final ThemeData theme = ThemeData(
     titleLarge: TextStyle(
       // For "Clear"
       fontSize: 28,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
     titleMedium: TextStyle(
@@ -39,7 +39,7 @@ final ThemeData theme = ThemeData(
     bodyMedium: TextStyle(
       // For labels like "Humidity", "Wind", etc.
       fontSize: 14,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     bodySmall: TextStyle(

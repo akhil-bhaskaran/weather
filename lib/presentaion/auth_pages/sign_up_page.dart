@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/presentaion/auth_pages/bloc/auth_bloc.dart';
 import 'package:weather_app/presentaion/auth_pages/sign_in_page.dart';
+import 'package:weather_app/presentaion/splash_screen/splash_screen.dart';
 
 import 'package:weather_app/theme/app_colors.dart';
 
@@ -17,7 +18,6 @@ class SignUpPage extends StatefulWidget {
 
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
-TextEditingController nameController = TextEditingController();
 
 class _SignUpPageState extends State<SignUpPage> {
   @override
@@ -28,7 +28,14 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(height: screenHeight / 3, color: Colors.black),
+            Container(
+              height: screenHeight / 3,
+              color: Colors.black,
+              child: Image.asset(
+                "assets/images/raint.png",
+                fit: BoxFit.fitHeight,
+              ),
+            ),
             Container(
               height: screenHeight * 0.7,
               decoration: BoxDecoration(
@@ -38,6 +45,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   topRight: Radius.circular(30),
                 ),
               ),
+
+              //Bloc
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state is ToggleToLoginState) {
@@ -57,7 +66,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       builder:
                           (_) => AlertDialog(
                             backgroundColor: AppColors.greybg,
-                            title: const Text("Notice"),
+                            title: const Text(
+                              "Notice",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
                             content: Text(
                               state.message,
                               style: TextStyle(color: Colors.white),
@@ -72,6 +87,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ],
                           ),
+                    );
+                  } else if (state is AuthSuccess) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => SplashScreen()),
                     );
                   }
                 },
@@ -94,11 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 color: Colors.black,
                               ),
                             ),
-                            SizedBox(height: 20),
-                            MyTextfield(
-                              hintText: 'Name',
-                              controller: nameController,
-                            ),
+
                             SizedBox(height: 20),
                             MyTextfield(
                               hintText: 'Email',
@@ -125,11 +141,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                   onPressed: () {
                                     BlocProvider.of<AuthBloc>(context).add(
                                       AuthSignUpRequested(
-                                        username: nameController.text.trim(),
                                         email: emailController.text.trim(),
                                         password:
-                                            passwordController.text.trim(),
-                                        cpassword:
                                             passwordController.text.trim(),
                                       ),
                                     );
