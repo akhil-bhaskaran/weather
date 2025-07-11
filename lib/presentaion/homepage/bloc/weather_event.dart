@@ -12,8 +12,9 @@ final class WeatherSearchEvent extends WeatherEvent {
 }
 
 class WeatherLoadedFromSplash extends WeatherEvent {
+  final WeatherForecast forecast;
   final WeatherDataModel weatherData;
-  WeatherLoadedFromSplash({required this.weatherData});
+  WeatherLoadedFromSplash({required this.weatherData, required this.forecast});
 }
 
 class RestoreInitialWeatherEvent extends WeatherEvent {}

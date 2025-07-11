@@ -40,7 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           } else if (state is SplashLoaded) {
             context.read<WeatherBloc>().add(
-              WeatherLoadedFromSplash(weatherData: state.weatherData),
+              WeatherLoadedFromSplash(
+                weatherData: state.weatherData,
+                forecast: state.forecast,
+              ),
             );
             Navigator.pushReplacement(
               context,

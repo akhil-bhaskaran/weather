@@ -117,11 +117,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
                             SizedBox(height: 20),
                             MyTextfield(
+                              isIconNeeded: false,
                               hintText: 'Email',
                               controller: emailController,
                             ),
                             SizedBox(height: 20),
                             MyTextfield(
+                              isIconNeeded: true,
                               hintText: "Password",
                               controller: passwordController,
                             ),

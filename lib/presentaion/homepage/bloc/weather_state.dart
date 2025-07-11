@@ -9,8 +9,9 @@ final class WeatherLoading extends WeatherState {}
 
 final class WeatherSuccess extends WeatherState {
   final WeatherDataModel weatherData;
+  final WeatherForecast forecast;
 
-  WeatherSuccess({required this.weatherData});
+  WeatherSuccess({required this.weatherData, required this.forecast});
 }
 
 final class WeatherFailure extends WeatherState {
@@ -23,6 +24,7 @@ final class LoadSearchState extends WeatherState {}
 
 final class WeatherSearchSuccess extends WeatherState {
   final WeatherDataModel weatherData;
+  final WeatherForecast forecast;
 
-  WeatherSearchSuccess({required this.weatherData});
+  WeatherSearchSuccess({required this.weatherData, required this.forecast});
 }

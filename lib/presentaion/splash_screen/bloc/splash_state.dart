@@ -9,7 +9,8 @@ final class SplashLoading extends SplashState {}
 
 class SplashLoaded extends SplashState {
   final WeatherDataModel weatherData;
-  SplashLoaded({required this.weatherData});
+  final WeatherForecast forecast;
+  SplashLoaded({required this.weatherData, required this.forecast});
 }
 
 final class DirectToHomePage extends SplashState {}
